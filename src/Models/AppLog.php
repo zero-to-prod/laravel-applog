@@ -13,7 +13,7 @@ class AppLog extends Model
 
     public const context_id = 'context_id';
 
-    public const user_id = 'user_id';
+    public const auth_id = 'auth_id';
 
     public const flag = 'flag';
 

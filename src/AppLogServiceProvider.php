@@ -2,6 +2,8 @@
 
 namespace Zerotoprod\AppLog;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -15,5 +17,11 @@ class AppLogServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasMigration('create_applog_table')
             ->hasMigration('add_full_text_index_to_formatted_in_applog_table');
+
+        if (is_callable([Log::class, 'shareContext'])) {
+            Log::shareContext([
+                'id' => (string)Str::uuid(),
+            ]);
+        }
     }
 }
