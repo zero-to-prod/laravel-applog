@@ -20,7 +20,7 @@ class AppLogServiceProvider extends PackageServiceProvider
 
         if (is_callable([Log::class, 'shareContext'])) {
             Log::shareContext([
-                'id' => (string)Str::uuid(),
+                'id' => (string) Str::uuid(),
             ]);
         }
     }
