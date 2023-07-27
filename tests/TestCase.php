@@ -16,7 +16,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Zerotoprod\\AppLog\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Zerotoprod\\AppLog\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -31,14 +31,14 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        $migration = include __DIR__ . '/../database/migrations/create_applog_table.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_applog_table.php.stub';
         $migration->up();
     }
 
     /**
      * Define environment setup.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
     protected function defineEnvironment($app)

@@ -11,6 +11,6 @@ class AppLogger
      */
     public function __invoke(array $config): Logger
     {
-        return (new Logger("DatabaseLogger"))->pushHandler(new AppLogHandler);
+        return (new Logger('DatabaseLogger'))->pushHandler(new AppLogHandler);
     }
 }

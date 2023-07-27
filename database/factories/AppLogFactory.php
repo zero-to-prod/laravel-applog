@@ -5,7 +5,6 @@ namespace Zerotoprod\AppLog\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Zerotoprod\AppLog\Models\AppLog;
 
-
 class AppLogFactory extends Factory
 {
     protected $model = AppLog::class;
@@ -24,4 +23,3 @@ class AppLogFactory extends Factory
         ];
     }
 }
-

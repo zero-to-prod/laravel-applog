@@ -4,7 +4,6 @@ namespace Zerotoprod\AppLog;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Zerotoprod\AppLog\Commands\AppLogCommand;
 
 class AppLogServiceProvider extends PackageServiceProvider
 {
