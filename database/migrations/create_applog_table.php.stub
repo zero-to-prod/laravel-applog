@@ -11,8 +11,7 @@ return new class extends Migration {
         Schema::create((new AppLog)->getTable(), static function (Blueprint $table) {
             $table->id();
             $table->string(AppLog::context_id)->nullable()->index();
-            $table->foreignId(AppLog::user_id)->nullable();
-            $table->boolean(AppLog::flag)->default(0);
+            $table->foreignId(AppLog::auth_id)->nullable();
             $table->longText(AppLog::message);
             $table->json(AppLog::context);
             $table->integer(AppLog::level)->index();

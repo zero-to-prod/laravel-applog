@@ -15,7 +15,7 @@ class AppLogHandler extends AbstractProcessingHandler
     protected function write(LogRecord $record): void
     {
         $data = [
-            AppLog::user_id => Auth::user()?->id,
+            AppLog::auth_id => Auth::user()?->id,
             AppLog::message => $record->message,
             AppLog::context_id => $record->context['id'] ?? null,
             AppLog::context => json_encode($record->context),
