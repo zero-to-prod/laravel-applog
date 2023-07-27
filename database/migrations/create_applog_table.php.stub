@@ -3,17 +3,32 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Zerotoprod\AppLog\Models\AppLog;
 
-return new class extends Migration
-{
-    public function up()
+return new class extends Migration {
+    public function up(): void
     {
-        Schema::create('applog_table', function (Blueprint $table) {
+        Schema::create((new AppLog)->getTable(), static function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
-            $table->timestamps();
+            $table->string(AppLog::context_id)->nullable()->index();
+            $table->foreignId(AppLog::user_id)->nullable();
+            $table->boolean(AppLog::flag)->default(0);
+            $table->longText(AppLog::message);
+            $table->json(AppLog::context);
+            $table->integer(AppLog::level)->index();
+            $table->string(AppLog::level_name);
+            $table->string(AppLog::channel)->index();
+            $table->dateTime(AppLog::record_datetime)->index();
+            $table->longText(AppLog::extra);
+            $table->longText(AppLog::formatted);
+            $table->string(AppLog::remote_address)->nullable();
+            $table->string(AppLog::user_agent)->nullable();
+            $table->timestamp(AppLog::created_at)->nullable();
         });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists((new AppLog)->getTable());
     }
 };

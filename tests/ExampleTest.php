@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
+use Zerotoprod\AppLog\Models\AppLog;
+
 it('can test', function () {
-    expect(true)->toBeTrue();
+    Log::debug('test');
+    expect(AppLog::first()->exists())->toBeTrue();
 });

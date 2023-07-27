@@ -10,16 +10,11 @@ class AppLogServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package
             ->name('applog')
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_applog_table')
-            ->hasCommand(AppLogCommand::class);
+            ->hasMigration('add_full_text_index_to_formatted_in_applog_table');
     }
 }
