@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Zerotoprod\AppLog\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class AppLogCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'applog';
 
     public $description = 'My command';
 
