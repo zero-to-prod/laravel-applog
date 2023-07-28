@@ -1,6 +1,6 @@
 <?php
 
-namespace Zerotoprod\AppLog;
+namespace Zerotoprod\AppLog\Log;
 
 use Monolog\Logger;
 

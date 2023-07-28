@@ -6,9 +6,9 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Zerotoprod\AppLog\AppLogger;
-use Zerotoprod\AppLog\AppLogHandler;
 use Zerotoprod\AppLog\AppLogServiceProvider;
+use Zerotoprod\AppLog\Log\AppLogger;
+use Zerotoprod\AppLog\Log\AppLogHandler;
 
 class TestCase extends Orchestra
 {
