@@ -18,7 +18,7 @@ class AppLogServiceProvider extends PackageServiceProvider
             ->hasMigration('add_full_text_index_to_formatted_in_applog_table');
 
         if (is_callable([Log::class, 'shareContext'])) {
-            Log::shareContext(['id' => (string)Str::uuid()]);
+            Log::shareContext(['id' => (string) Str::uuid()]);
         }
     }
 }
