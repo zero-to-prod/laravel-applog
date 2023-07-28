@@ -4,6 +4,7 @@ namespace Zerotoprod\AppLog\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Monolog\Level;
 
 class AppLog extends Model
 {
@@ -22,8 +23,6 @@ class AppLog extends Model
     public const context = 'context';
 
     public const level = 'level';
-
-    public const level_name = 'level_name';
 
     public const channel = 'channel';
 
@@ -44,7 +43,7 @@ class AppLog extends Model
     public const UPDATED_AT = null;
 
     protected $casts = [
-        self::level => 'integer',
+        self::level => Level::class,
         self::record_datetime => 'datetime',
     ];
 }

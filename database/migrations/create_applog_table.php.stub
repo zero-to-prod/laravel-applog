@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->longText(AppLog::message);
             $table->json(AppLog::context);
             $table->integer(AppLog::level)->index();
-            $table->string(AppLog::level_name);
             $table->string(AppLog::channel)->index();
             $table->dateTime(AppLog::record_datetime)->index();
             $table->longText(AppLog::extra);
