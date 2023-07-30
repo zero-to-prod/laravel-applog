@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>{{$title ?? 'Logs'}}</title>
 </head>
@@ -40,21 +41,21 @@
                         </svg>
                     </button>
                 </div>
-                <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
+                <div class="flex grow flex-col overflow-y-auto bg-gray-900 ring-1 ring-white/10">
                     <a href="{{route('home')}}"
-                       class="text-white flex h-16 shrink-0 items-center">{{config('app.name')}}</a>
+                       class="text-white flex h-16 shrink-0 items-center pl-2">{{config('app.name')}}</a>
                     @include('applog::nav.main-mobile')
                 </div>
             </div>
         </div>
     </div>
-    <div class="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-black/10 px-6 ring-1 ring-white/5">
-            <a href="{{route('home')}}" class="flex h-16 shrink-0 items-center text-white">{{config('app.name')}}</a>
+    <div class="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-36 xl:flex-col">
+        <div class="flex grow flex-col overflow-y-auto bg-black/10 ring-1 ring-white/5">
+            <a href="{{route('home')}}" class="flex h-16 shrink-0 items-center text-white pl-2">{{config('app.name')}}</a>
             @include('applog::nav.main-desktop')
         </div>
     </div>
-    <div class="xl:pl-72">
+    <div class="xl:pl-36">
         <div
             class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-white/5 bg-gray-900 px-4 shadow-sm sm:px-6 lg:px-8">
             <button type="button" class="-m-2.5 p-2.5 text-white xl:hidden" @click="open = true">

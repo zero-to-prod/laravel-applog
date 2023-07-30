@@ -37,7 +37,10 @@
         "psr-4": {
             "Zerotoprod\\AppLog\\": "src/",
             "Zerotoprod\\AppLog\\Database\\Factories\\": "database/factories/"
-        }
+        },
+        "files": [
+            "database/helpers/test_functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

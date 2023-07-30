@@ -1,10 +1,10 @@
 <nav class="flex flex-1 flex-col">
     <ul role="list" class="flex flex-1 flex-col gap-y-7">
         <li>
-            <ul role="list" class="-mx-2 space-y-1">
+            <ul role="list">
                 <li>
                     <a href="{{route('logs')}}"
-                       class="{{request()->routeIs('logs') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'}} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                       class="{{request()->routeIs('logs') ? 'bg-gray-800 text-white hover:bg-gray-600' : 'text-gray-400 hover:text-white hover:bg-gray-600'}} group flex gap-x-3 p-2 text-sm leading-6 font-semibold"
                        x-state-description="undefined: &quot;bg-gray-800 text-white&quot;, undefined: &quot;text-gray-400 hover:text-white hover:bg-gray-800&quot;">
                         <svg class="h-6 w-6 shrink-0" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -16,7 +16,7 @@
                 </li>
                 <li>
                     <a href="{{route('php')}}"
-                       class="{{request()->routeIs('php') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'}} group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                       class="{{request()->routeIs('php') ? 'bg-gray-800 text-white hover:bg-gray-600' : 'text-gray-400 hover:text-white hover:bg-gray-600'}} group flex gap-x-3 p-2 text-sm leading-6 font-semibold"
                        x-state:on="Current" x-state:off="Default"
                        x-state-description="Current: &quot;bg-gray-800 text-white&quot;, Default: &quot;text-gray-400 hover:text-white hover:bg-gray-800&quot;">
                         <svg class="h-6 w-6 shrink-0" xmlns="http://www.w3.org/2000/svg"

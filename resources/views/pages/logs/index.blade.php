@@ -13,27 +13,6 @@ $to = LogController::to;
     <div>
         <form action="{{route('logs')}}" class="flex px-4 mt-8">
             @csrf
-            <div class="shadow p-4 ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-gray-50">
-                <div class="flex flex-col gap-4">
-                    <fieldset>
-                        <legend class="text-sm font-medium leading-6 text-gray-900">Level</legend>
-                        <div class="space-y-2">
-                            @foreach($logs->unique(AppLog::level)->sortBy(AppLog::level)->pluck(AppLog::level) as $level)
-                                <div class="relative flex items-start">
-                                    <div class="flex h-6 items-center">
-                                        <input {{request($level->value) ? 'checked' : ''}} value="{{$level->value}}" id="{{$level->value}}"
-                                               aria-describedby="{{$level->value}}" name="{{$level->value}}" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                                    </div>
-                                    <div class="ml-3 text-sm leading-6">
-                                        <label for="{{$level->value}}" class="font-medium text-gray-900">{{$level->value}}</label>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
             <div class="flex flex-col gap-4 w-full">
                 <div class="mx-4 flex gap-4">
                     <div>
@@ -72,6 +51,32 @@ $to = LogController::to;
                             </div>
                         </div>
                     </div>
+                    <div x-data="{
+                            options: [{{implode(', ', $logs->unique(AppLog::level)->sortBy(AppLog::level)->pluck(AppLog::level)->map(function ($level) {return request($level->value) ? "'$level->value'": null;})->toArray())}}],
+                            open: false,
+                            params: [],
+                            init() {
+                                let urlParams = new URLSearchParams(window.location.search);
+                                this.params.forEach(param => {
+                                    if (urlParams.has(param) && urlParams.get(param) !== '') {
+                                        this.options.push(param);
+                                    }
+                                });
+                            },
+                        }"
+                         x-init="init()"
+                         class="w-full relative">
+                    <div @click="open = !open" class="p-3 rounded-lg flex gap-2 w-full border border-neutral-300 cursor-pointer truncate h-12 bg-white" x-text="options.length + ' items selected'">
+                        </div>
+                        <div class="p-3 rounded-lg flex gap-3 w-full shadow-lg x-50 absolute flex-col bg-white mt-3" x-show="open" x-trap="open" @click.outside="open = false" @keydown.escape.window="open = false" x-transition:enter=" ease-[cubic-bezier(.3,2.3,.6,1)] duration-200" x-transition:enter-start="!opacity-0 !mt-0" x-transition:enter-end="!opacity-1 !mt-3" x-transition:leave=" ease-out duration-200" x-transition:leave-start="!opacity-1 !mt-3" x-transition:leave-end="!opacity-0 !mt-0">
+                            @foreach($logs->unique(AppLog::level)->sortBy(AppLog::level)->pluck(AppLog::level) as $level)
+                                <div class="flex items-center">
+                                    <input x-model="options" id="{{$level->value}}" name="{{$level->value}}" {{request($level->value) ? 'checked' : ''}} type="checkbox" value="{{$level->value}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="{{$level->value}}" class="ml-2 text-sm font-medium text-gray-900 flex-grow">{{$level->value}} {{$level->name}}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                     <div class="mt-6">
                         <button
                             class="rounded-md bg-indigo-600 p-2 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -80,45 +85,51 @@ $to = LogController::to;
                     </div>
                 </div>
                 <div class="sm:px-6 lg:px-8">
-                    <div class="flow-root">
-                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div class="inline-block min-w-full py-2 align-middle px-4">
-                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                    <table class="min-w-full divide-y divide-gray-300">
-                                        <thead class="bg-gray-50">
-                                        <tr>
-                                            <th scope="col"
-                                                class="w-8 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                Level
-                                            </th>
-                                            <th scope="col"
-                                                class="w-4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                Time
-                                            </th>
-                                            <th scope="col"
-                                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                                Message
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200 bg-white">
-                                        @foreach($logs as $log)
-                                            <tr class="even:bg-gray-50">
-                                                <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-6">
-                                                    {{ $log->level }}
-                                                </td>
-                                                <td class="whitespace-nowrap text-sm text-gray-900"
-                                                    title="{{$log->created_at}}">{{ $log->created_at->diffForHumans() }}</td>
-                                                <td class="px-3 py-2 text-xs text-gray-500 font-mono"><a
-                                                        class=" px-3 py-2 w-full"
-                                                        href="{{route('logs.show', ['id' => $log->id], false)}}">{{ $log->message }}</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="bg-gray-50 py-4">
-                                        {{ $logs->links() }}
+                    <div class="bg-gray-900">
+                        <div class="mx-auto max-w-7xl">
+                            <div class="bg-gray-900 py-10">
+                                <div class="px-4 sm:px-6 lg:px-8">
+                                    <div class="sm:flex sm:items-center">
+                                        <div class="sm:flex-auto">
+                                            <h1 class="text-base font-semibold leading-6 text-white">Logs</h1>
+                                        </div>
+                                    </div>
+                                    <div class="mt-8 flow-root">
+                                        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                                <table class="min-w-full divide-y divide-gray-700">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col"
+                                                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">
+                                                            Level
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="px-3 py-3.5 text-left text-sm font-semibold text-white">
+                                                            Time
+                                                        </th>
+                                                        <th scope="col"
+                                                            class="px-3 py-3.5 text-left text-sm font-semibold text-white">
+                                                            Message
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="divide-y divide-gray-800">
+                                                    @foreach($logs as $log)
+                                                        <tr>
+                                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{{ $log->level }}</td>
+                                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300"
+                                                                title="{{$log->created_at}}">{{ $log->created_at->diffForHumans() }}</td>
+                                                            <td class="px-3 py-4 text-sm text-gray-300 font-mono">
+                                                                <a class=" px-3 py-2 w-full"
+                                                                   href="{{route('logs.show', ['id' => $log->id], false)}}">{{ $log->message }}</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
